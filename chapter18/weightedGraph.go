@@ -134,4 +134,22 @@ func main() {
 
 	fmt.Println(dijkstra_shortest_path(&atlanta, &elpaso))
 
+	// exercise 5
+	idris := newWeightedGraphVertex("Idris")
+	kamil := newWeightedGraphVertex("Kamil")
+	lina := newWeightedGraphVertex("Lina")
+	sasha := newWeightedGraphVertex("Sasha")
+	marco := newWeightedGraphVertex("Marco")
+	ken := newWeightedGraphVertex("Ken")
+	talia := newWeightedGraphVertex("Talia")
+	idris.add_adjacent_vertex(&kamil, 1)
+	idris.add_adjacent_vertex(&talia, 1)
+	kamil.add_adjacent_vertex(&lina, 1)
+	lina.add_adjacent_vertex(&sasha, 1)
+	sasha.add_adjacent_vertex(&marco, 1)
+	ken.add_adjacent_vertex(&ken, 1)
+	talia.add_adjacent_vertex(&talia, 1)
+
+	fmt.Println(dijkstra_shortest_path(&idris, &lina))
+
 }

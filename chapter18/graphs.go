@@ -113,6 +113,39 @@ func (v *Vertex) bfs_traverse(starting_vertex *Vertex) {
 	}
 }
 
+func (v *Vertex) bfs(starting_vertex *Vertex, search_value string) *Vertex {
+	if starting_vertex.value == search_value {
+		return starting_vertex
+	}
+
+	queue := Queue{make([]*Vertex, 0)}
+
+	visited_vertices := make(map[string]bool)
+	visited_vertices[starting_vertex.value] = true
+	queue.enqueue(starting_vertex)
+
+	for {
+		if len(queue.data) <= 0 {
+			break
+		}
+		current_vertex := queue.dequeue()
+
+		if current_vertex.value == search_value {
+			fmt.Println("Search Result:", current_vertex)
+			return current_vertex
+		}
+
+		for _, adjacent_vertex := range current_vertex.adjacent_vertices {
+			if _, ok := visited_vertices[adjacent_vertex.value]; ok {
+				continue
+			}
+			visited_vertices[adjacent_vertex.value] = true
+			queue.enqueue(adjacent_vertex)
+		}
+	}
+	return nil
+}
+
 func main() {
 	fmt.Println("Welcome to Graphs!")
 
@@ -145,4 +178,8 @@ func main() {
 
 	fmt.Println("bfs_traverse method:")
 	will.bfs_traverse(&will)
+	fmt.Println("")
+
+	fmt.Println("bfs search method:")
+	will.bfs(&will, "Morgar")
 }
